@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import UseStateEx from "./components/useStateEx";
+
+const itemList = ["useState", "useEffect"]
 
 function App() {
+
+  const [section, setSection] = useState(itemList[0])
+
+  const handleSelectSection = (e) => {
+    e.preventDefault()
+    setSection(e.target.value)
+  }
+
+  const RenderItems = () => (
+    itemList.map(item => <button key={item} onClick={handleSelectSection} value={item} >{item}</button>)
+  )
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ padding: 20 }}>
+      <RenderItems />
+      <h1>{section}</h1>
+      <div>
+        {section === "useState" && <UseStateEx />}
+      </div>
     </div>
   );
 }
